@@ -1,4 +1,5 @@
 from('a');
+from = 1;
 
 require();
 require(123);
@@ -6,7 +7,13 @@ require(123);
 require.resolve();
 require.resolve('c');
 
-x.require('d');
-x.y.require('e');
-
 z[require]('f');
+
+require,('a');
+
+function require() {}
+function require(a) {}
+
+function a(): require {}
+
+require('a' + 'c');

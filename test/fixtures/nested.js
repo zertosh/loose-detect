@@ -11,3 +11,7 @@ function f(a = require('a')) {
     yield require('i');
   })
 }
+
+x.require('j');
+x.y.require('k');
+x.y.require('l').z;
