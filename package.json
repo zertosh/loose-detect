@@ -1,7 +1,7 @@
 {
   "name": "loose-detect",
   "version": "0.0.0",
-  "description": "loose-detect",
+  "description": "Fast (and loose) `require` and `import` extractor using js-tokens instead of an AST",
   "keywords": [
     "import",
     "node-detective",

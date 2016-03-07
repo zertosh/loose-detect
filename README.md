@@ -2,8 +2,35 @@
 
 [![Build Status](https://travis-ci.org/zertosh/loose-detect.svg?branch=master)](https://travis-ci.org/zertosh/loose-detect)
 
-Extract `require` and `import` values fast.
+Fast (and loose) `require` and `import` extractor [js-tokens](https://github.com/lydell/js-tokens) instead of an AST.
 
-## Options
+## Gotchas
+
+* Doesn't handle broken syntax.
+* Doesn't look inside embedded expressions in template strings.
+  - **this won't work:**
+  ```js
+  console.log(`the current env is ${process.env.NODE_ENV}`);
+  ```
+* See https://github.com/lydell/js-tokens#limitations
 
 ## Usage
+
+```sh
+$ npm install loose-detect
+```
+
+```js
+var detect = require('loose-detect');
+console.log(detect('import a from "a"; require("b")'));
+// ["a", "b"]
+```
+
+## Benchmark
+
+```
+$ find ./bench/nuclide -type f -name '*.js' -print0 | xargs -0 ./bench/bench.js
+Looking at 1575 files
+babylon & babel-traverse: 5651.09ms
+loose-detect:             249.92ms
+```

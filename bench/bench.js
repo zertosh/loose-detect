@@ -4,12 +4,12 @@
 /*
 The nuclide source is a mixture of ES5/ES6/ES7 with flow types.
 
-$ rm -rf nuclide && \
-  mkdir nuclide && \
+$ rm -rf bench/nuclide && \
+  mkdir bench/nuclide && \
   curl -L 'https://github.com/facebook/nuclide/archive/8c5862e.zip' |
-  tar xz -C 'nuclide' --strip-components=1
+  tar xz -C 'bench/nuclide' --strip-components=1
 
-$ find ./nuclide -type f -name '*.js' -print0 | xargs -0 ./bench.js
+$ find ./bench/nuclide -type f -name '*.js' -print0 | xargs -0 ./bench/bench.js
  */
 
 var fs = require('fs');
@@ -41,8 +41,8 @@ while ((file = files.shift())) {
   }
 }
 
-console.log('  astTime %dms', (astTime / 1e6).toFixed(2));
-console.log('looseTime %dms', (looseTime / 1e6).toFixed(2));
+console.log('babylon & babel-traverse: %dms', (astTime / 1e6).toFixed(2));
+console.log('loose-detect:             %dms', (looseTime / 1e6).toFixed(2));
 
 function equal(a, b) {
   if (a.length !== b.length) return false;
