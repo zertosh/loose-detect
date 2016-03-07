@@ -50,7 +50,7 @@ function parse(src) {
   try {
     return babylon.parse(src, {
       sourceType: 'module',
-      strictMode: true,
+      strictMode: false,
       allowImportExportEverywhere: true,
       allowReturnOutsideFunction: true,
       allowSuperOutsideMethod: true,
