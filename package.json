@@ -1,0 +1,28 @@
+{
+  "name": "loose-detect",
+  "version": "0.0.0",
+  "description": "loose-detect",
+  "keywords": [
+    "import",
+    "node-detective",
+    "require"
+  ],
+  "license": "MIT",
+  "author": "Andres Suarez <zertosh@gmail.com>",
+  "files": [
+    "loose-detect.js"
+  ],
+  "main": "loose-detect.js",
+  "repository": "zertosh/loose-detect",
+  "scripts": {
+    "test": "tap test/*-test.js"
+  },
+  "dependencies": {
+    "js-tokens": "^1.0.2"
+  },
+  "devDependencies": {
+    "babylon": "^6.5.0",
+    "babel-traverse": "^6.5.0",
+    "tap": "^5.7.0"
+  }
+}
