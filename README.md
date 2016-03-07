@@ -8,9 +8,10 @@ Fast (and loose) `require` and `import` extractor [js-tokens](https://github.com
 
 * Doesn't handle broken syntax.
 * Doesn't look inside embedded expressions in template strings.
-  - **this won't work:**
+  - **This doesn't work:**
   ```js
-  console.log(`the current env is ${process.env.NODE_ENV}`);
+  // "pretty-ms" will not be found
+  console.log(`time: ${require('pretty-ms')(Date.now())}`);
   ```
 * See https://github.com/lydell/js-tokens#limitations
 
