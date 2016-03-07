@@ -47,6 +47,7 @@ function extract(parts) {
       ) {
         found.push(arg.token.slice(1, -1));
         i = closing.index;
+        continue;
       }
     }
   }
