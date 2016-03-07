@@ -29,3 +29,11 @@ test('nested', function(t) {
   var expected = astDetect(source);
   t.deepEqual(actual, expected);
 });
+
+test('weird', function(t) {
+  t.plan(1);
+  var source = fs.readFileSync(__dirname + '/fixtures/weird.js', 'utf8');
+  var actual = detect(source);
+  var expected = astDetect(source);
+  t.deepEqual(actual, expected);
+});
