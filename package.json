@@ -15,7 +15,7 @@
   "main": "loose-detect.js",
   "repository": "zertosh/loose-detect",
   "scripts": {
-    "test": "tap test/*-test.js"
+    "test": "tap test/test.js"
   },
   "dependencies": {
     "js-tokens": "^1.0.2"
