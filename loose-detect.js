@@ -21,40 +21,44 @@ function extract(parts) {
   var found = [];
   for (var i = 0; i < parts.length; i++) {
     var part = parts[i];
+
     if (part === 'import' || part === 'from') {
-      var nextCodeToken = getAdjacentCodeToken(1, parts, i);
-      if (stringRe.test(nextCodeToken.token)) {
-        found.push(nextCodeToken.token.slice(1, -1));
-        i = nextCodeToken.index;
+      var afterFrom = _next(parts, i);
+      if (stringRe.test(afterFrom.token)) {
+        found.push(afterFrom.token.slice(1, -1));
+        i = afterFrom.index;
+        continue;
       }
-    } else if (part === 'require') {
-      var prevCodeToken = getAdjacentCodeToken(-1, parts, i);
-      var nextCodeToken = getAdjacentCodeToken(1, parts, i);
-      if (prevCodeToken.token !== '.' &&
-          nextCodeToken.token === '(') {
-        var arg = getAdjacentCodeToken(1, parts, nextCodeToken.index);
-        if (stringRe.test(arg.token)) {
-          var closing = getAdjacentCodeToken(1, parts, arg.index);
-          if (closing.token === ')' ||
-              closing.token === ',') {
-            found.push(arg.token.slice(1, -1));
-            i = closing.index;
-          }
-        }
+    }
+
+    if (part === 'require') {
+      var beforeRequire = _prev(parts, i);
+      var opening = _next(parts, i);
+      var arg = _next(parts, opening.index);
+      var closing = _next(parts, arg.index);
+      if (
+        beforeRequire.token !== '.' &&  // not property access
+        opening.token === '(' &&        // method call
+        stringRe.test(arg.token) &&     // string first arg
+        (
+          closing.token === ')' ||      // not string concat
+          closing.token === ','
+        )
+      ) {
+        found.push(arg.token.slice(1, -1));
+        i = closing.index;
       }
     }
   }
   return found;
 }
 
-function getAdjacentCodeToken(dir, parts, i) {
-  while (true) {
-    var part = parts[i += dir];
-    if (!spaceOrCommentRe.test(part)) {
-      return {
-        token: part,
-        index: i,
-      };
-    }
-  }
+function _prev(parts, i) {
+  while (spaceOrCommentRe.test(parts[--i])) {}
+  return {token: parts[i], index: i};
+}
+
+function _next(parts, i) {
+  while (spaceOrCommentRe.test(parts[++i])) {}
+  return {token: parts[i], index: i};
 }
